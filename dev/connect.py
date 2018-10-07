@@ -1,5 +1,5 @@
 import smartsheet
-from config import ss_user
+from config import *
 # import pandas as pd, json
 
 
@@ -19,7 +19,7 @@ def get_site_name_id(sheet_dict):
             return column['id']
 
 
-# Returns a list of all Site Name values in sheet
+# Returns a list of all Site Name values in a given sheet
 def get_site_name_list(sheet_dict, site_list=[]):
     for row in sheet_dict['rows']:
         for row_cell in row['cells']:
@@ -34,8 +34,7 @@ ss_client = smartsheet.Smartsheet(ss_user['access_token'])
 # Make sure we don't miss any errors
 ss_client.errors_as_exceptions(True)
 
-solis_test_sheet_id = 3073042256553860
-alleyton_test_sheet_id = 5850406480832388
+
 
 # Retrieve Smartsheet: "TEST - Alleyton Inventory"
 alleyton_test_sheet = ss_client.Sheets.get_sheet(alleyton_test_sheet_id)
