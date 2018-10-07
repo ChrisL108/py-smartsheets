@@ -3,7 +3,8 @@ from config import ss_user
 # import pandas as pd, json
 
 
-def get_columns(sheet_dict, column_dict={}):
+# Returns a dict of all columns: { 'id'(key) : 'title'(value) }
+def get_column_dict(sheet_dict, column_dict={}):
     for column in sheet_dict['columns']:
         column_name = column['title']
         column_id = column['id']
@@ -11,11 +12,19 @@ def get_columns(sheet_dict, column_dict={}):
     return column_dict
 
 
-def get_site_names(sheet_dict, site_list=[]):
+# Returns the ID of Site Name column
+def get_site_name_id(sheet_dict):
+    for column in sheet_dict['columns']:
+        if 'site' and 'name' in column['title'].lower():
+            return column['id']
+
+
+# Returns a list of all Site Name values in sheet
+def get_site_name_list(sheet_dict, site_list=[]):
     for row in sheet_dict['rows']:
         for row_cell in row['cells']:
-            # TODO: create function that searches for ID of for "Site Name" column
-            if row_cell['columnId'] == 5562647857915780 and "displayValue" in row_cell.keys():
+            sheet_site_name_id = get_site_name_id(sheet_dict)
+            if row_cell['columnId'] == sheet_site_name_id and "displayValue" in row_cell.keys():
                 site_list.append(row_cell['displayValue'])
     return site_list
 
@@ -27,9 +36,15 @@ ss_client.errors_as_exceptions(True)
 
 solis_test_sheet_id = 3073042256553860
 alleyton_test_sheet_id = 5850406480832388
-# Retrieve Smartsheet: "TEST - Alleyton Inventory"
-current_sheet = ss_client.Sheets.get_sheet(alleyton_test_sheet_id)
-custom_sheet_dict = current_sheet.to_dict()
 
-# get_columns(custom_sheet_dict)
-# get_site_names(custom_sheet_dict)
+# Retrieve Smartsheet: "TEST - Alleyton Inventory"
+alleyton_test_sheet = ss_client.Sheets.get_sheet(alleyton_test_sheet_id)
+alleyton_sheet_dict = alleyton_test_sheet.to_dict()
+
+# get_column_dict(custom_sheet_dict)
+# get_site_name_list(custom_sheet_dict)
+
+'''
+    solis_sheet_id = 3073042256553860
+    alleyton_sheet_id = 5850406480832388
+'''
