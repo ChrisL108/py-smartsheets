@@ -1,18 +1,10 @@
 import smartsheet, json
-from config import *
-
 
 # Returns a dict of all columns: { 'id'(key) : 'title'(value) }
 from dev.config import alleyton_test_sheet_id, ss_user
 
 
-def get_sheet_columns(sheet_dict, column_dict=None):
-    """
-    :type sheet_dict: dict
-    :type column_dict: dict
-    """
-    if column_dict is None:
-        column_dict = {}
+def get_sheet_columns(sheet_dict, column_dict={}):
     for column in sheet_dict['columns']:
         column_name = column['title']
         column_id = column['id']
@@ -20,7 +12,7 @@ def get_sheet_columns(sheet_dict, column_dict=None):
     return column_dict
 
 
-# Returns the ID of Site Name column
+# Returns the ID of "Site Name" column
 def get_sheet_column_id_site_name(sheet_dict):
     for column in sheet_dict['columns']:
         if 'site' and 'name' in column['title'].lower():
@@ -43,6 +35,9 @@ def get_sheet_column_values_site_name(sheet_dict, site_list=[]):
                 site_list.append(row_cell['displayValue'])
     return site_list
 
+# TODO: generate_row(): Go through columns, get value from user, append to new dict obj to be pushed to ss_client
+#
+# TODO: push_sheet_row(generate_row())
 
 # TODO: get_value()
 '''
