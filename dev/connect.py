@@ -52,17 +52,6 @@ def get_sheet_site_names(sheet_dict, site_list=[]):
     return site_list
 
 
-# TODO: generate_row(): Go through columns, get value from user, append to new dict obj to be pushed to ss_client
-# TODO: push_sheet_row(generate_row())
-# TODO: get_value()
-'''
-getValue( "Site", "Column Name", sheet): 
-    columnToFind(displayValue = "Column Name")
-    val = parse("Site Name")
-    if val[0] and val[1] in column["Site Name"]:
-        
-'''
-
 # Create a Smartsheet client object, available functions to this obj in API docs
 ss_client = smartsheet.Smartsheet(ss_user['access_token'])
 # Make sure we don't miss any errors
