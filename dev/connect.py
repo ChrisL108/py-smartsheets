@@ -11,6 +11,19 @@ def get_sheet_columns(sheet_dict, column_dict={}):
     return column_dict
 
 
+# Takes a string input and sheet dictionary object and returns the name and ID of the column
+#   that matches the string input
+def get_column_id(usr_input, sheet_dict):
+    usr_input.split(' ')
+    stripped_input = usr_input.strip(" ")
+    matching_columns = []
+    sheet_columns = sheet_dict['columns']
+    for column in sheet_columns:
+        if stripped_input in column['title']:
+            matching_columns.append([column['title'], column['id']])
+    return matching_columns
+
+
 # Returns the ID of "Site Name" column
 def get_sheet_column_id_site_name(sheet_dict):
     for column in sheet_dict['columns']:
@@ -61,3 +74,6 @@ alleyton_sheet_dict = alleyton_sheet.to_dict()
 
 # alleyton_columns = get_sheet_columns(alleyton_sheet_dict)
 # alleyton_sites = get_sheet_site_names(alleyton_sheet_dict)
+
+
+
